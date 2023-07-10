@@ -83,9 +83,11 @@ public class TokenService : ITokenService
         var fullName = $"{user.FirstName} {user.LastName}".Trim();
         var name = !string.IsNullOrWhiteSpace(fullName) ? fullName : user.Username;
 
+        var identifier = _configuration["ClaimTypes:Id"] ?? "Id";
+
         var claims = new Claim[]
         {
-            new("Id", user.Id.ToString()),
+            new(identifier, user.Id.ToString()),
             new("Username", user.Username),
             new("Email", user.Email),
             new("Name", name)
